@@ -1,0 +1,26 @@
+[t, x] = ode45(@sys1, [0, 3], [1, 2]);
+plot(x(:,1), x(:,2))
+axis([-10, 10, -10, 10])
+
+hold on
+
+[t, x] = ode45(@sys1, [0, -3], [1, 2]);
+plot(x(:,1), x(:,2), 'r')
+
+plot([-6, 6], [0, 0], 'k')
+hold on
+plot([0, 0], [-6, 6], 'k')
+hold on
+axis([-6, 6, -6, 6])
+
+
+[x0, y0] = ginput(1);
+
+while x0 >= -6 && x0 <= 6 && y0 >= -6 && y0 <= 6
+    [t, x] = ode45(@sys1, [0, 4], [x0, y0]);
+    plot(x(:,1), x(:,2), 'b')
+    hold on
+    [t, x] = ode45(@sys1, [0, -4], [x0, y0]);
+    plot(x(:,1), x(:,2), 'r')
+    [x0, y0] = ginput(1);
+end
