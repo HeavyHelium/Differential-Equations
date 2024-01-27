@@ -1,18 +1,39 @@
 
-h = 0.01;
-x = 0 : h : 10;
-y(1) = 7;
-y(2) = y(1) + 2 * h + h ^ 2 * (-2 - 10 * y(1)) / 2;
+h = 0.1 ;
+tau = 0.01;
 
-for n = 2 : length(x) - 1
-    y(n + 1) = 2 * y(n) - y(n - 1) - h * (y(n) - y(n - 1)) - 10 * h ^ 2 * y(n);
+x = 0 : h : 3;
 
+t = 0 : tau : 1;
+
+M = length(t);
+N = length(x);
+
+u = zeros([N, M]);
+
+% edge conditions
+for m = 1 : M
+    u(1, m) = sin(6 * pi * t(m));
+    u(N, m) = 0;
 end
 
-plot(x, y)
-hold on
 
 
-sol = dsolve("D2y = -Dy - 10 * y, y(0) = 7, Dy(0) = 2");
-yy = subs(sol, 't', x);
-plot(x, yy, 'r')
+for n = 1 : N
+    u(n, 1) = x(n) * (3 - x(n));
+end
+
+
+for m = 1 : M - 1
+    for n = 2 : N - 1
+        u(n, m + 1) = u(n, m) + tau / h^2 * (u(n + 1, m) - 2 * u(n, m) + u(n - 1, m));
+    end
+end
+
+for m = 1 : M
+    plot(x, u(:, m))
+    axis([0, 3, -3, 3])
+    MM(m) = getframe;
+end
+
+movie(MM, 3)
