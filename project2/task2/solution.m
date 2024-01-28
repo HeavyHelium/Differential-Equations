@@ -14,7 +14,7 @@ u = zeros([N, M]);
 
 for m = 1 : M
     u(N, m) = exp(-t(m)) * sin(7 * t(m));
-    u(N, m) = 0;
+    u(1, m) = 0;
 end
 
 
