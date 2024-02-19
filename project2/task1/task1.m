@@ -4,20 +4,14 @@ t = 0 : 0.01 : 0.8;
 xx_a = 1 : 0.01 : 3;
 xx_b = 0 : 0.01 : 4;
 
-for k = 0:m
+for k = 1:m
     yy_b = xx_b .* sin(pi * xx_b) .* sin((k * pi / 4) * xx_b);
-    b(k + 1) = (-8/(k^2 * pi^2)) * trapz(xx_b, yy_b);
-    if isnan(b(k + 1))
-        b(k + 1) = 0;
-    end
+    b(k) = (-8/(k^2 * pi^2)) * trapz(xx_b, yy_b);
 end
 
-for k = 0:m
+for k = 1:m
     yy_a = (abs(xx_a - 2) - 1) .* sin(k * pi * (1 / 4) * xx_a);
-    a(k + 1) = -b(k + 1) + (1/2) * trapz(xx_a, yy_a);
-    if isnan(a(k + 1))
-        a(k + 1) = 0;
-    end
+    a(k) = -b(k) + (1/2) * trapz(xx_a, yy_a);
 end
 
 x = 0 : 0.01 : 4;
@@ -35,5 +29,4 @@ for i = 1:length(t)
 end
 
 movie(M, 3);
-
 
