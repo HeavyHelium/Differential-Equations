@@ -29,16 +29,17 @@ for n = 1 : N
     end
 end
 
+c = tau / h
 
-for m = 1 : M - 1
+for m = 2 : M - 1
     for n = 2 : N - 1
-        u(n,m+1) = (1 - 2 * tau / h^2) * u(n, m) + tau / h^2 * (u(n - 1, m) + u(n + 1, m));
+        u(n, m + 1) = 2 * (1 - c^2) * u(n, m) + c ^ 2 * (u(n - 1, m) + u(n + 1, m)) - u(n, m - 1);
     end
 end
 
 for m = 1 : M
     plot(x, u(:, m))
-    axis([0, 3, -2, 2])
+    axis([0, 3, -100, 100])
     MM(m) = getframe;
 end
 
