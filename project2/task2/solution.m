@@ -32,7 +32,7 @@ end
 
 for m = 1 : M - 1
     for n = 2 : N - 1
-        u(n, m + 1) = u(n, m) + tau / h^2 * (u(n + 1, m) - 2 * u(n, m) + u(n - 1, m));
+        u(n,m+1) = (1 - 2 * tau / h^2) * u(n, m) + tau / h^2 * (u(n - 1, m) + u(n + 1, m));
     end
 end
 
