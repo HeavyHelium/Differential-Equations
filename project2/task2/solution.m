@@ -27,6 +27,7 @@ for n = 1 : N
     else 
          "error";
     end
+    u(n, 2) = u(n, 1)
 end
 
 c = tau / h
@@ -39,7 +40,7 @@ end
 
 for m = 1 : M
     plot(x, u(:, m))
-    axis([0, 3, -100, 100])
+    axis([0, 3, -3, 3])
     MM(m) = getframe;
 end
 
